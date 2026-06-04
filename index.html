@@ -10,191 +10,187 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg-primary: #0f1117;
-      --bg-secondary: #1a1d27;
-      --bg-card: #222638;
-      --bg-hover: #2a2f45;
-      --border-primary: #2e3348;
-      --border-secondary: #383d55;
-      --text-primary: #e8eaf0;
-      --text-secondary: #8b90a5;
-      --text-muted: #5c6079;
-      --accent: #6c5ce7;
-      --accent-glow: rgba(108, 92, 231, 0.25);
-      --success: #00cec9;
-      --success-bg: rgba(0, 206, 201, 0.1);
-      --warning: #fdcb6e;
-      --warning-bg: rgba(253, 203, 110, 0.1);
-      --danger: #ff6b6b;
-      --danger-bg: rgba(255, 107, 107, 0.1);
-      --info: #74b9ff;
-      --info-bg: rgba(116, 185, 255, 0.1);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
+      --bg-primary: #0f1117; --bg-secondary: #1a1d27; --bg-card: #222638;
+      --bg-hover: #2a2f45; --border-primary: #2e3348; --border-secondary: #383d55;
+      --text-primary: #e8eaf0; --text-secondary: #8b90a5; --text-muted: #5c6079;
+      --accent: #6c5ce7; --accent-glow: rgba(108,92,231,0.25);
+      --success: #00cec9; --success-bg: rgba(0,206,201,0.1);
+      --warning: #fdcb6e; --warning-bg: rgba(253,203,110,0.1);
+      --danger: #ff6b6b; --danger-bg: rgba(255,107,107,0.1);
+      --info: #74b9ff; --info-bg: rgba(116,185,255,0.1);
+      --radius-sm: 8px; --radius-md: 12px; --radius-lg: 16px;
       --shadow: 0 4px 24px rgba(0,0,0,0.3);
     }
-
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background: var(--bg-primary);
-      color: var(--text-primary);
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
+      font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-primary);
+      color: var(--text-primary); min-height: 100vh; display: flex; justify-content: center;
       padding: 2rem 1rem;
-      background-image:
-        radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
+      background-image: radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
         radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,206,201,0.08), transparent);
     }
-
     .container {
-      width: 100%;
-      max-width: 720px;
-      padding: 2rem;
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-primary);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
-      animation: fadeIn 0.5s ease;
+      width: 100%; max-width: 720px; padding: 2rem; background: var(--bg-secondary);
+      border: 1px solid var(--border-primary); border-radius: var(--radius-lg);
+      box-shadow: var(--shadow); animation: fadeIn 0.5s ease;
     }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
+    @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
     h2 {
-      font-size: 1.35rem;
-      font-weight: 700;
+      font-size: 1.35rem; font-weight: 700;
       background: linear-gradient(135deg, var(--text-primary), var(--accent));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
       margin-bottom: 0.25rem;
     }
-
     .subtitle { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.25rem; }
-
     .section-title {
       font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
-      text-transform: uppercase; letter-spacing: 0.08em;
-      margin: 1.75rem 0 0.75rem;
+      text-transform: uppercase; letter-spacing: 0.08em; margin: 1.75rem 0 0.75rem;
     }
-
-    /* Info / Status Boxes */
     .info-box, .warn-box, .success-box, .danger-box {
-      border-radius: var(--radius-sm); padding: 0.75rem 1rem;
-      font-size: 0.82rem; margin: 0.75rem 0; display: flex; align-items: flex-start; gap: 8px;
-      line-height: 1.5;
+      border-radius: var(--radius-sm); padding: 0.75rem 1rem; font-size: 0.82rem;
+      margin: 0.75rem 0; display: flex; align-items: flex-start; gap: 8px; line-height: 1.5;
     }
-    .info-box    { background: var(--info-bg);    color: var(--info);    border-left: 3px solid var(--info); }
-    .warn-box    { background: var(--warning-bg); color: var(--warning); border-left: 3px solid var(--warning); }
+    .info-box { background: var(--info-bg); color: var(--info); border-left: 3px solid var(--info); }
+    .warn-box { background: var(--warning-bg); color: var(--warning); border-left: 3px solid var(--warning); }
     .success-box { background: var(--success-bg); color: var(--success); border-left: 3px solid var(--success); }
-    .danger-box  { background: var(--danger-bg);  color: var(--danger);  border-left: 3px solid var(--danger); }
-
-    /* Header Row & Kurul Rows */
+    .danger-box { background: var(--danger-bg); color: var(--danger); border-left: 3px solid var(--danger); }
     .header-row, .kurul-row {
-      display: grid;
-      grid-template-columns: 1fr 120px 80px 100px 40px;
-      gap: 8px; align-items: center;
+      display: grid; grid-template-columns: 1fr 120px 80px 100px 40px; gap: 8px; align-items: center;
     }
     .header-row { margin-bottom: 6px; }
     .header-row span { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
     .kurul-row { margin-bottom: 8px; animation: slideIn 0.25s ease; }
-    @keyframes slideIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
-
     .kurul-label { font-size: 0.85rem; color: var(--text-primary); font-weight: 500; }
-
-    input[type="number"] {
-      width: 100%; padding: 8px 10px; font-size: 0.85rem;
-      font-family: 'Inter', sans-serif;
+    input[type="number"], select {
+      width: 100%; padding: 8px 10px; font-size: 0.85rem; font-family: 'Inter', sans-serif;
       background: var(--bg-primary); color: var(--text-primary);
       border: 1px solid var(--border-primary); border-radius: var(--radius-sm);
-      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-      -moz-appearance: textfield;
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s; -moz-appearance: textfield;
     }
     input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
-    input[type="number"]:focus {
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px var(--accent-glow);
-    }
-
-    /* Result Metrics */
+    input[type="number"]:focus, select:focus { border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-glow); }
+    select option { background: var(--bg-secondary); color: var(--text-primary); }
     .result-grid {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
       gap: 12px; margin: 1.5rem 0;
     }
     .metric {
       background: var(--bg-card); border: 1px solid var(--border-primary);
-      border-radius: var(--radius-md); padding: 1rem;
-      transition: transform 0.2s, box-shadow 0.2s;
+      border-radius: var(--radius-md); padding: 1rem; transition: transform 0.2s, box-shadow 0.2s;
     }
     .metric:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
     .metric-label { font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
     .metric-value { font-size: 1.6rem; font-weight: 700; }
     .metric-value.success { color: var(--success); }
-    .metric-value.danger  { color: var(--danger); }
+    .metric-value.danger { color: var(--danger); }
     .metric-value.warning { color: var(--warning); }
-
-    /* Buttons */
     .btn-add {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.8rem; font-family: 'Inter', sans-serif; font-weight: 500;
-      padding: 8px 16px; cursor: pointer;
-      border-radius: var(--radius-sm);
-      background: linear-gradient(135deg, var(--accent), #a29bfe);
-      border: none; color: #fff;
-      transition: opacity 0.2s, transform 0.15s;
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.8rem;
+      font-family: 'Inter', sans-serif; font-weight: 500; padding: 8px 16px; cursor: pointer;
+      border-radius: var(--radius-sm); background: linear-gradient(135deg, var(--accent), #a29bfe);
+      border: none; color: #fff; transition: opacity 0.2s, transform 0.15s;
     }
     .btn-add:hover { opacity: 0.85; transform: scale(1.03); }
-
     .btn-remove {
       display: inline-flex; align-items: center; justify-content: center;
-      width: 36px; height: 36px; cursor: pointer;
-      border-radius: var(--radius-sm);
+      width: 36px; height: 36px; cursor: pointer; border-radius: var(--radius-sm);
       background: transparent; border: 1px solid var(--border-primary);
-      color: var(--danger); font-size: 1rem; padding: 0;
-      transition: background 0.2s, border-color 0.2s;
+      color: var(--danger); font-size: 1rem; padding: 0; transition: background 0.2s, border-color 0.2s;
     }
     .btn-remove:hover { background: var(--danger-bg); border-color: var(--danger); }
     .btn-remove:disabled { opacity: 0.25; cursor: not-allowed; }
-
     .divider { border: none; border-top: 1px solid var(--border-primary); margin: 1.25rem 0; }
 
-    /* Mobile Responsive */
+    /* Top bar with settings toggle */
+    .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.25rem; }
+    .btn-settings {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 0.78rem;
+      font-family: 'Inter', sans-serif; font-weight: 500; padding: 7px 14px; cursor: pointer;
+      border-radius: var(--radius-sm); background: var(--bg-card); border: 1px solid var(--border-primary);
+      color: var(--text-secondary); transition: background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn-settings:hover { background: var(--bg-hover); color: var(--text-primary); border-color: var(--accent); }
+    .btn-settings.active { background: var(--accent-glow); color: var(--accent); border-color: var(--accent); }
+
+    /* Settings Panel */
+    .settings-panel {
+      max-height: 0; overflow: hidden; transition: max-height 0.35s ease, opacity 0.3s ease, margin 0.3s ease;
+      opacity: 0; margin: 0;
+    }
+    .settings-panel.open { max-height: 400px; opacity: 1; margin: 1rem 0; }
+    .settings-inner {
+      background: var(--bg-card); border: 1px solid var(--border-secondary);
+      border-radius: var(--radius-md); padding: 1.25rem;
+    }
+    .settings-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px;
+    }
+    .setting-item label {
+      display: block; font-size: 0.72rem; color: var(--text-secondary); margin-bottom: 6px;
+      text-transform: uppercase; letter-spacing: 0.04em; font-weight: 500;
+    }
+    .setting-item input[type="number"] { font-size: 0.9rem; padding: 10px 12px; }
+    .settings-title {
+      font-size: 0.75rem; font-weight: 600; color: var(--accent); margin-bottom: 1rem;
+      display: flex; align-items: center; gap: 6px;
+    }
+
     @media (max-width: 600px) {
       body { padding: 1rem 0.5rem; }
       .container { padding: 1.25rem; border-radius: var(--radius-md); }
       h2 { font-size: 1.15rem; }
-      .header-row, .kurul-row {
-        grid-template-columns: 1fr 1fr;
-        gap: 6px;
-      }
+      .header-row, .kurul-row { grid-template-columns: 1fr 1fr; gap: 6px; }
       .header-row { display: none; }
       .kurul-row {
-        background: var(--bg-card);
-        border: 1px solid var(--border-primary);
-        border-radius: var(--radius-sm);
-        padding: 12px;
-        margin-bottom: 10px;
+        background: var(--bg-card); border: 1px solid var(--border-primary);
+        border-radius: var(--radius-sm); padding: 12px; margin-bottom: 10px;
       }
-      .kurul-label {
-        grid-column: 1 / -1;
-        font-weight: 600;
-        margin-bottom: 4px;
-      }
+      .kurul-label { grid-column: 1 / -1; font-weight: 600; margin-bottom: 4px; }
       .kurul-row input { font-size: 1rem; padding: 10px; }
       .kurul-row span[id^="ks"] { text-align: center; }
       .btn-remove { justify-self: end; }
       .result-grid { grid-template-columns: 1fr; }
       .metric-value { font-size: 1.4rem; }
+      .settings-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 <div class="container">
-  <h2 id="page-title">İnönü Tıp Fakültesi — Not Hesaplama</h2>
+  <div class="top-bar">
+    <h2 id="page-title">İnönü Tıp Fakültesi — Not Hesaplama</h2>
+    <button class="btn-settings" id="btn-settings" onclick="toggleSettings()">
+      <i class="ti ti-settings" aria-hidden="true"></i> Ayarlar
+    </button>
+  </div>
   <p class="subtitle">Dönem I, II, III · Kurul sınavı sistemi</p>
+
+  <!-- Settings Panel -->
+  <div class="settings-panel" id="settingsPanel">
+    <div class="settings-inner">
+      <div class="settings-title"><i class="ti ti-adjustments" aria-hidden="true"></i> Hesaplama Ayarları</div>
+      <div class="settings-grid">
+        <div class="setting-item">
+          <label for="ayarKurulAgirlik">Kurul ağırlığı (%)</label>
+          <input type="number" id="ayarKurulAgirlik" min="0" max="100" value="60" oninput="ayarDegisti()">
+        </div>
+        <div class="setting-item">
+          <label for="ayarFinalAgirlik">Final ağırlığı (%)</label>
+          <input type="number" id="ayarFinalAgirlik" min="0" max="100" value="40" oninput="ayarDegisti()">
+        </div>
+        <div class="setting-item">
+          <label for="ayarGecmeNotu">Geçme notu</label>
+          <input type="number" id="ayarGecmeNotu" min="0" max="100" value="60" oninput="hesapla()">
+        </div>
+        <div class="setting-item">
+          <label for="ayarMinKurulNot">Min. kurul notu</label>
+          <input type="number" id="ayarMinKurulNot" min="0" max="100" value="60" oninput="hesapla()">
+        </div>
+      </div>
+      <div id="ayarUyari" style="margin-top:10px;"></div>
+    </div>
+  </div>
 
   <div class="info-box">
     <i class="ti ti-info-circle" aria-hidden="true"></i>
@@ -202,17 +198,10 @@
   </div>
 
   <div class="section-title">Kurul sınavlarınız</div>
-
   <div class="header-row">
-    <span></span>
-    <span>Not (0–100)</span>
-    <span>Kredi</span>
-    <span>Durum</span>
-    <span></span>
+    <span></span><span>Not (0–100)</span><span>Kredi</span><span>Durum</span><span></span>
   </div>
-
   <div id="kurullar"></div>
-
   <div style="margin-top: 8px;">
     <button class="btn-add" id="btn-kurul-ekle" onclick="kurulEkle()">
       <i class="ti ti-plus" aria-hidden="true"></i> Kurul ekle
@@ -234,21 +223,59 @@
 <script>
 let kurul_sayisi = 5;
 
+// --- Settings ---
+function getAyarlar() {
+  return {
+    kurulAgirlik: (parseFloat(document.getElementById('ayarKurulAgirlik').value) || 60) / 100,
+    finalAgirlik: (parseFloat(document.getElementById('ayarFinalAgirlik').value) || 40) / 100,
+    gecmeNotu: parseFloat(document.getElementById('ayarGecmeNotu').value) || 60,
+    minKurulNot: parseFloat(document.getElementById('ayarMinKurulNot').value) || 60,
+  };
+}
+
+function ayarDegisti() {
+  const ka = parseFloat(document.getElementById('ayarKurulAgirlik').value) || 0;
+  const fa = parseFloat(document.getElementById('ayarFinalAgirlik').value) || 0;
+  const uyari = document.getElementById('ayarUyari');
+  if (ka + fa !== 100) {
+    uyari.innerHTML = `<div class="warn-box" style="margin:0"><i class="ti ti-alert-triangle"></i> <span>Kurul + Final ağırlıkları toplamı %100 olmalı (şu an %${ka + fa})</span></div>`;
+  } else {
+    uyari.innerHTML = '';
+  }
+  hesapla();
+}
+
+function toggleSettings() {
+  const panel = document.getElementById('settingsPanel');
+  const btn = document.getElementById('btn-settings');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+// --- Kurul state helpers ---
+function mevcutDegerleriAl() {
+  const notlar = [], krediler = [];
+  for (let i = 0; i < kurul_sayisi; i++) {
+    const nEl = document.getElementById(`k${i}`);
+    const kEl = document.getElementById(`kr${i}`);
+    notlar.push(nEl ? nEl.value : '');
+    krediler.push(kEl ? kEl.value : '1');
+  }
+  return { notlar, krediler };
+}
+
 function kurulEkle() {
+  const { notlar, krediler } = mevcutDegerleriAl();
   kurul_sayisi++;
-  renderKurullar();
+  notlar.push('');
+  krediler.push('1');
+  renderKurullar(notlar, krediler);
   hesapla();
 }
 
 function kurulCikar(idx) {
-  const satirlar = document.querySelectorAll('.kurul-row');
-  if (satirlar.length <= 1) return;
-  const notlar = [];
-  const krediler = [];
-  satirlar.forEach((row, i) => {
-    notlar.push(document.getElementById(`k${i}`).value);
-    krediler.push(document.getElementById(`kr${i}`).value);
-  });
+  if (kurul_sayisi <= 1) return;
+  const { notlar, krediler } = mevcutDegerleriAl();
   notlar.splice(idx, 1);
   krediler.splice(idx, 1);
   kurul_sayisi--;
@@ -276,8 +303,8 @@ function renderKurullar(notlar = [], krediler = []) {
 }
 
 function hesapla() {
-  const notlar = [];
-  const krediler = [];
+  const ayar = getAyarlar();
+  const notlar = [], krediler = [];
   let hepsiBos = true;
 
   for (let i = 0; i < kurul_sayisi; i++) {
@@ -286,85 +313,74 @@ function hesapla() {
     const span = document.getElementById(`ks${i}`);
     if (!isNaN(v)) {
       hepsiBos = false;
-      notlar.push(v);
-      krediler.push(kr);
-      if (v < 60) {
-        span.innerHTML = `<span style="color:var(--danger)"><i class="ti ti-x" aria-hidden="true"></i> Başarısız</span>`;
+      notlar.push(v); krediler.push(kr);
+      if (v < ayar.minKurulNot) {
+        span.innerHTML = `<span style="color:var(--danger)"><i class="ti ti-x"></i> Başarısız</span>`;
       } else {
-        span.innerHTML = `<span style="color:var(--success)"><i class="ti ti-check" aria-hidden="true"></i> Başarılı</span>`;
+        span.innerHTML = `<span style="color:var(--success)"><i class="ti ti-check"></i> Başarılı</span>`;
       }
     } else {
-      span.textContent = '';
-      notlar.push(null);
-      krediler.push(kr);
+      span.textContent = ''; notlar.push(null); krediler.push(kr);
     }
   }
 
   const finalVal = parseFloat(document.getElementById('finalNot').value);
   const resultsEl = document.getElementById('results');
   const durumEl = document.getElementById('durum');
-
   if (hepsiBos) { resultsEl.innerHTML = ''; durumEl.innerHTML = ''; return; }
 
-  let ort = 0, tkr = 0;
-  let bazindaKalan = 0;
+  let ort = 0, tkr = 0, bazindaKalan = 0;
   for (let i = 0; i < kurul_sayisi; i++) {
     if (notlar[i] !== null) {
-      ort += notlar[i] * krediler[i];
-      tkr += krediler[i];
-      if (notlar[i] < 60) bazindaKalan++;
+      ort += notlar[i] * krediler[i]; tkr += krediler[i];
+      if (notlar[i] < ayar.minKurulNot) bazindaKalan++;
     }
   }
   const kurul_ort = tkr > 0 ? ort / tkr : null;
 
   let html = '';
   if (kurul_ort !== null) {
-    const renkOrt = kurul_ort >= 75 ? 'success' : kurul_ort >= 60 ? 'warning' : 'danger';
+    const renkOrt = kurul_ort >= 75 ? 'success' : kurul_ort >= ayar.gecmeNotu ? 'warning' : 'danger';
     html += `<div class="metric"><div class="metric-label">Kurul ortalaması</div><div class="metric-value ${renkOrt}">${kurul_ort.toFixed(1)}</div></div>`;
   }
-
   if (!isNaN(finalVal)) {
-    const renkFinal = finalVal >= 60 ? 'success' : finalVal >= 50 ? 'warning' : 'danger';
+    const renkFinal = finalVal >= ayar.gecmeNotu ? 'success' : finalVal >= 50 ? 'warning' : 'danger';
     html += `<div class="metric"><div class="metric-label">Final notu</div><div class="metric-value ${renkFinal}">${finalVal.toFixed(0)}</div></div>`;
   }
-
   if (kurul_ort !== null && !isNaN(finalVal)) {
-    const donemBasari = kurul_ort * 0.6 + finalVal * 0.4;
-    const renkBasari = donemBasari >= 60 ? 'success' : 'danger';
-    html += `<div class="metric"><div class="metric-label">Dönem başarı notu</div><div class="metric-value ${renkBasari}">${donemBasari.toFixed(1)}</div><div style="font-size:0.65rem;color:var(--text-secondary);margin-top:4px;">kurul×0.6 + final×0.4</div></div>`;
+    const donemBasari = kurul_ort * ayar.kurulAgirlik + finalVal * ayar.finalAgirlik;
+    const renkBasari = donemBasari >= ayar.gecmeNotu ? 'success' : 'danger';
+    html += `<div class="metric"><div class="metric-label">Dönem başarı notu</div><div class="metric-value ${renkBasari}">${donemBasari.toFixed(1)}</div><div style="font-size:0.65rem;color:var(--text-secondary);margin-top:4px;">kurul×${ayar.kurulAgirlik} + final×${ayar.finalAgirlik}</div></div>`;
   } else if (kurul_ort !== null) {
-    const minFinal = (60 - kurul_ort * 0.6) / 0.4;
+    const minFinal = ayar.finalAgirlik > 0 ? (ayar.gecmeNotu - kurul_ort * ayar.kurulAgirlik) / ayar.finalAgirlik : Infinity;
     const renkMin = minFinal <= 100 ? 'warning' : 'danger';
     html += `<div class="metric"><div class="metric-label">Geçmek için min. final</div><div class="metric-value ${renkMin}">${minFinal <= 0 ? '—' : minFinal > 100 ? '100+' : Math.ceil(minFinal)}</div></div>`;
   }
-
   resultsEl.innerHTML = html;
 
   let durumHtml = '';
   if (bazindaKalan > 0) {
-    durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>${bazindaKalan} kuruldan 60 altı aldınız. Bu kurulları bütünlemede telafi etmeniz gerekebilir.</span></div>`;
+    durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>${bazindaKalan} kuruldan ${ayar.minKurulNot} altı aldınız. Bu kurulları bütünlemede telafi etmeniz gerekebilir.</span></div>`;
   }
-
   if (kurul_ort !== null && !isNaN(finalVal)) {
-    const donemBasari = kurul_ort * 0.6 + finalVal * 0.4;
+    const donemBasari = kurul_ort * ayar.kurulAgirlik + finalVal * ayar.finalAgirlik;
     if (finalVal < 50) {
-      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Final notu 50'nin altında — yönetmelik gereği finalden en az 50 alınması zorunludur.</span></div>`;
-    } else if (donemBasari >= 60 && bazindaKalan === 0) {
-      durumHtml += `<div class="success-box"><i class="ti ti-circle-check" aria-hidden="true"></i> <span>Tebrikler! Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (60) sağlıyorsunuz.</span></div>`;
-    } else if (donemBasari < 60) {
-      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (60) sağlayamıyorsunuz. Bütünleme sınavı hakkınız doğabilir.</span></div>`;
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Final notu 50'nin altında — yönetmelik gereği finalden en az 50 alınması zorunludur.</span></div>`;
+    } else if (donemBasari >= ayar.gecmeNotu && bazindaKalan === 0) {
+      durumHtml += `<div class="success-box"><i class="ti ti-circle-check"></i> <span>Tebrikler! Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (${ayar.gecmeNotu}) sağlıyorsunuz.</span></div>`;
+    } else if (donemBasari < ayar.gecmeNotu) {
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (${ayar.gecmeNotu}) sağlayamıyorsunuz. Bütünleme sınavı hakkınız doğabilir.</span></div>`;
     }
   } else if (kurul_ort !== null && isNaN(finalVal)) {
-    const minFinal = (60 - kurul_ort * 0.6) / 0.4;
+    const minFinal = ayar.finalAgirlik > 0 ? (ayar.gecmeNotu - kurul_ort * ayar.kurulAgirlik) / ayar.finalAgirlik : Infinity;
     if (minFinal <= 50) {
-      durumHtml += `<div class="success-box"><i class="ti ti-info-circle" aria-hidden="true"></i> <span>Kurul ortalamanızla, finalden minimum 50 alarak geçebilirsiniz (50 alırsanız dönem notu: ${(kurul_ort*0.6+50*0.4).toFixed(1)}).</span></div>`;
+      durumHtml += `<div class="success-box"><i class="ti ti-info-circle"></i> <span>Kurul ortalamanızla, finalden minimum 50 alarak geçebilirsiniz (50 alırsanız dönem notu: ${(kurul_ort*ayar.kurulAgirlik+50*ayar.finalAgirlik).toFixed(1)}).</span></div>`;
     } else if (minFinal > 100) {
-      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Kurul ortalamanız çok düşük — 100 alsanız bile dönem başarı notunuz 60'a ulaşamaz.</span></div>`;
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Kurul ortalamanız çok düşük — 100 alsanız bile dönem başarı notunuz ${ayar.gecmeNotu}'a ulaşamaz.</span></div>`;
     } else {
-      durumHtml += `<div class="warn-box"><i class="ti ti-info-circle" aria-hidden="true"></i> <span>Geçmek için finalden en az <strong>${Math.ceil(minFinal)}</strong> almanız gerekiyor.</span></div>`;
+      durumHtml += `<div class="warn-box"><i class="ti ti-info-circle"></i> <span>Geçmek için finalden en az <strong>${Math.ceil(minFinal)}</strong> almanız gerekiyor.</span></div>`;
     }
   }
-
   durumEl.innerHTML = durumHtml;
 }
 
