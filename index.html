@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>İnönü Tıp — Not Hesaplama</title>
+  <meta name="description" content="İnönü Üniversitesi Tıp Fakültesi kurul sınavı not hesaplama aracı">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg-primary: #0f1117;
+      --bg-secondary: #1a1d27;
+      --bg-card: #222638;
+      --bg-hover: #2a2f45;
+      --border-primary: #2e3348;
+      --border-secondary: #383d55;
+      --text-primary: #e8eaf0;
+      --text-secondary: #8b90a5;
+      --text-muted: #5c6079;
+      --accent: #6c5ce7;
+      --accent-glow: rgba(108, 92, 231, 0.25);
+      --success: #00cec9;
+      --success-bg: rgba(0, 206, 201, 0.1);
+      --warning: #fdcb6e;
+      --warning-bg: rgba(253, 203, 110, 0.1);
+      --danger: #ff6b6b;
+      --danger-bg: rgba(255, 107, 107, 0.1);
+      --info: #74b9ff;
+      --info-bg: rgba(116, 185, 255, 0.1);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 4px 24px rgba(0,0,0,0.3);
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      padding: 2rem 1rem;
+      background-image:
+        radial-gradient(ellipse 80% 50% at 50% -20%, var(--accent-glow), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(0,206,201,0.08), transparent);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 720px;
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-primary);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--text-primary), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 0.25rem;
+    }
+
+    .subtitle { font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .section-title {
+      font-size: 0.7rem; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.08em;
+      margin: 1.75rem 0 0.75rem;
+    }
+
+    /* Info / Status Boxes */
+    .info-box, .warn-box, .success-box, .danger-box {
+      border-radius: var(--radius-sm); padding: 0.75rem 1rem;
+      font-size: 0.82rem; margin: 0.75rem 0; display: flex; align-items: flex-start; gap: 8px;
+      line-height: 1.5;
+    }
+    .info-box    { background: var(--info-bg);    color: var(--info);    border-left: 3px solid var(--info); }
+    .warn-box    { background: var(--warning-bg); color: var(--warning); border-left: 3px solid var(--warning); }
+    .success-box { background: var(--success-bg); color: var(--success); border-left: 3px solid var(--success); }
+    .danger-box  { background: var(--danger-bg);  color: var(--danger);  border-left: 3px solid var(--danger); }
+
+    /* Header Row & Kurul Rows */
+    .header-row, .kurul-row {
+      display: grid;
+      grid-template-columns: 1fr 120px 80px 100px 40px;
+      gap: 8px; align-items: center;
+    }
+    .header-row { margin-bottom: 6px; }
+    .header-row span { font-size: 0.7rem; color: var(--text-muted); font-weight: 500; }
+    .kurul-row { margin-bottom: 8px; animation: slideIn 0.25s ease; }
+    @keyframes slideIn { from { opacity:0; transform:translateX(-8px); } to { opacity:1; transform:translateX(0); } }
+
+    .kurul-label { font-size: 0.85rem; color: var(--text-primary); font-weight: 500; }
+
+    input[type="number"] {
+      width: 100%; padding: 8px 10px; font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--bg-primary); color: var(--text-primary);
+      border: 1px solid var(--border-primary); border-radius: var(--radius-sm);
+      outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+      -moz-appearance: textfield;
+    }
+    input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; }
+    input[type="number"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-glow);
+    }
+
+    /* Result Metrics */
+    .result-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px; margin: 1.5rem 0;
+    }
+    .metric {
+      background: var(--bg-card); border: 1px solid var(--border-primary);
+      border-radius: var(--radius-md); padding: 1rem;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .metric:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.25); }
+    .metric-label { font-size: 0.7rem; color: var(--text-secondary); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.04em; }
+    .metric-value { font-size: 1.6rem; font-weight: 700; }
+    .metric-value.success { color: var(--success); }
+    .metric-value.danger  { color: var(--danger); }
+    .metric-value.warning { color: var(--warning); }
+
+    /* Buttons */
+    .btn-add {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.8rem; font-family: 'Inter', sans-serif; font-weight: 500;
+      padding: 8px 16px; cursor: pointer;
+      border-radius: var(--radius-sm);
+      background: linear-gradient(135deg, var(--accent), #a29bfe);
+      border: none; color: #fff;
+      transition: opacity 0.2s, transform 0.15s;
+    }
+    .btn-add:hover { opacity: 0.85; transform: scale(1.03); }
+
+    .btn-remove {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 36px; height: 36px; cursor: pointer;
+      border-radius: var(--radius-sm);
+      background: transparent; border: 1px solid var(--border-primary);
+      color: var(--danger); font-size: 1rem; padding: 0;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .btn-remove:hover { background: var(--danger-bg); border-color: var(--danger); }
+    .btn-remove:disabled { opacity: 0.25; cursor: not-allowed; }
+
+    .divider { border: none; border-top: 1px solid var(--border-primary); margin: 1.25rem 0; }
+
+    /* Mobile Responsive */
+    @media (max-width: 600px) {
+      body { padding: 1rem 0.5rem; }
+      .container { padding: 1.25rem; border-radius: var(--radius-md); }
+      h2 { font-size: 1.15rem; }
+      .header-row, .kurul-row {
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      .header-row { display: none; }
+      .kurul-row {
+        background: var(--bg-card);
+        border: 1px solid var(--border-primary);
+        border-radius: var(--radius-sm);
+        padding: 12px;
+        margin-bottom: 10px;
+      }
+      .kurul-label {
+        grid-column: 1 / -1;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .kurul-row input { font-size: 1rem; padding: 10px; }
+      .kurul-row span[id^="ks"] { text-align: center; }
+      .btn-remove { justify-self: end; }
+      .result-grid { grid-template-columns: 1fr; }
+      .metric-value { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h2 id="page-title">İnönü Tıp Fakültesi — Not Hesaplama</h2>
+  <p class="subtitle">Dönem I, II, III · Kurul sınavı sistemi</p>
+
+  <div class="info-box">
+    <i class="ti ti-info-circle" aria-hidden="true"></i>
+    <span>Geçme notu: 60 · Her kuruldan ayrı ayrı en az 60 alınması zorunlu · Finalsiz geçme: kurul ort. ≥75 ve her kuruldan ≥60 (2020 öncesi girişler)</span>
+  </div>
+
+  <div class="section-title">Kurul sınavlarınız</div>
+
+  <div class="header-row">
+    <span></span>
+    <span>Not (0–100)</span>
+    <span>Kredi</span>
+    <span>Durum</span>
+    <span></span>
+  </div>
+
+  <div id="kurullar"></div>
+
+  <div style="margin-top: 8px;">
+    <button class="btn-add" id="btn-kurul-ekle" onclick="kurulEkle()">
+      <i class="ti ti-plus" aria-hidden="true"></i> Kurul ekle
+    </button>
+  </div>
+
+  <hr class="divider">
+  <div class="section-title">Final sınavı</div>
+  <div style="display:grid; grid-template-columns:1fr 140px; gap:8px; align-items:center; margin-bottom:1rem;">
+    <label style="font-size:0.85rem;" for="finalNot">Final notu (0–100)</label>
+    <input type="number" id="finalNot" min="0" max="100" placeholder="—" oninput="hesapla()">
+  </div>
+
+  <hr class="divider">
+  <div class="result-grid" id="results"></div>
+  <div id="durum"></div>
+</div>
+
+<script>
+let kurul_sayisi = 5;
+
+function kurulEkle() {
+  kurul_sayisi++;
+  renderKurullar();
+  hesapla();
+}
+
+function kurulCikar(idx) {
+  const satirlar = document.querySelectorAll('.kurul-row');
+  if (satirlar.length <= 1) return;
+  const notlar = [];
+  const krediler = [];
+  satirlar.forEach((row, i) => {
+    notlar.push(document.getElementById(`k${i}`).value);
+    krediler.push(document.getElementById(`kr${i}`).value);
+  });
+  notlar.splice(idx, 1);
+  krediler.splice(idx, 1);
+  kurul_sayisi--;
+  renderKurullar(notlar, krediler);
+  hesapla();
+}
+
+function renderKurullar(notlar = [], krediler = []) {
+  const cont = document.getElementById('kurullar');
+  cont.innerHTML = '';
+  for (let i = 0; i < kurul_sayisi; i++) {
+    const row = document.createElement('div');
+    row.className = 'kurul-row';
+    row.innerHTML = `
+      <span class="kurul-label">Kurul ${i+1}</span>
+      <input type="number" min="0" max="100" placeholder="—" id="k${i}" oninput="hesapla()" value="${notlar[i] !== undefined ? notlar[i] : ''}">
+      <input type="number" min="1" max="10" placeholder="1" id="kr${i}" oninput="hesapla()" value="${krediler[i] !== undefined && krediler[i] !== '' ? krediler[i] : 1}">
+      <span id="ks${i}" style="font-size:0.8rem;"></span>
+      <button class="btn-remove" onclick="kurulCikar(${i})" aria-label="Kurul ${i+1} sil" ${kurul_sayisi <= 1 ? 'disabled' : ''}>
+        <i class="ti ti-minus" aria-hidden="true"></i>
+      </button>
+    `;
+    cont.appendChild(row);
+  }
+}
+
+function hesapla() {
+  const notlar = [];
+  const krediler = [];
+  let hepsiBos = true;
+
+  for (let i = 0; i < kurul_sayisi; i++) {
+    const v = parseFloat(document.getElementById(`k${i}`).value);
+    const kr = parseFloat(document.getElementById(`kr${i}`).value) || 1;
+    const span = document.getElementById(`ks${i}`);
+    if (!isNaN(v)) {
+      hepsiBos = false;
+      notlar.push(v);
+      krediler.push(kr);
+      if (v < 60) {
+        span.innerHTML = `<span style="color:var(--danger)"><i class="ti ti-x" aria-hidden="true"></i> Başarısız</span>`;
+      } else {
+        span.innerHTML = `<span style="color:var(--success)"><i class="ti ti-check" aria-hidden="true"></i> Başarılı</span>`;
+      }
+    } else {
+      span.textContent = '';
+      notlar.push(null);
+      krediler.push(kr);
+    }
+  }
+
+  const finalVal = parseFloat(document.getElementById('finalNot').value);
+  const resultsEl = document.getElementById('results');
+  const durumEl = document.getElementById('durum');
+
+  if (hepsiBos) { resultsEl.innerHTML = ''; durumEl.innerHTML = ''; return; }
+
+  let ort = 0, tkr = 0;
+  let bazindaKalan = 0;
+  for (let i = 0; i < kurul_sayisi; i++) {
+    if (notlar[i] !== null) {
+      ort += notlar[i] * krediler[i];
+      tkr += krediler[i];
+      if (notlar[i] < 60) bazindaKalan++;
+    }
+  }
+  const kurul_ort = tkr > 0 ? ort / tkr : null;
+
+  let html = '';
+  if (kurul_ort !== null) {
+    const renkOrt = kurul_ort >= 75 ? 'success' : kurul_ort >= 60 ? 'warning' : 'danger';
+    html += `<div class="metric"><div class="metric-label">Kurul ortalaması</div><div class="metric-value ${renkOrt}">${kurul_ort.toFixed(1)}</div></div>`;
+  }
+
+  if (!isNaN(finalVal)) {
+    const renkFinal = finalVal >= 60 ? 'success' : finalVal >= 50 ? 'warning' : 'danger';
+    html += `<div class="metric"><div class="metric-label">Final notu</div><div class="metric-value ${renkFinal}">${finalVal.toFixed(0)}</div></div>`;
+  }
+
+  if (kurul_ort !== null && !isNaN(finalVal)) {
+    const donemBasari = kurul_ort * 0.6 + finalVal * 0.4;
+    const renkBasari = donemBasari >= 60 ? 'success' : 'danger';
+    html += `<div class="metric"><div class="metric-label">Dönem başarı notu</div><div class="metric-value ${renkBasari}">${donemBasari.toFixed(1)}</div><div style="font-size:0.65rem;color:var(--text-secondary);margin-top:4px;">kurul×0.6 + final×0.4</div></div>`;
+  } else if (kurul_ort !== null) {
+    const minFinal = (60 - kurul_ort * 0.6) / 0.4;
+    const renkMin = minFinal <= 100 ? 'warning' : 'danger';
+    html += `<div class="metric"><div class="metric-label">Geçmek için min. final</div><div class="metric-value ${renkMin}">${minFinal <= 0 ? '—' : minFinal > 100 ? '100+' : Math.ceil(minFinal)}</div></div>`;
+  }
+
+  resultsEl.innerHTML = html;
+
+  let durumHtml = '';
+  if (bazindaKalan > 0) {
+    durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>${bazindaKalan} kuruldan 60 altı aldınız. Bu kurulları bütünlemede telafi etmeniz gerekebilir.</span></div>`;
+  }
+
+  if (kurul_ort !== null && !isNaN(finalVal)) {
+    const donemBasari = kurul_ort * 0.6 + finalVal * 0.4;
+    if (finalVal < 50) {
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Final notu 50'nin altında — yönetmelik gereği finalden en az 50 alınması zorunludur.</span></div>`;
+    } else if (donemBasari >= 60 && bazindaKalan === 0) {
+      durumHtml += `<div class="success-box"><i class="ti ti-circle-check" aria-hidden="true"></i> <span>Tebrikler! Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (60) sağlıyorsunuz.</span></div>`;
+    } else if (donemBasari < 60) {
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (60) sağlayamıyorsunuz. Bütünleme sınavı hakkınız doğabilir.</span></div>`;
+    }
+  } else if (kurul_ort !== null && isNaN(finalVal)) {
+    const minFinal = (60 - kurul_ort * 0.6) / 0.4;
+    if (minFinal <= 50) {
+      durumHtml += `<div class="success-box"><i class="ti ti-info-circle" aria-hidden="true"></i> <span>Kurul ortalamanızla, finalden minimum 50 alarak geçebilirsiniz (50 alırsanız dönem notu: ${(kurul_ort*0.6+50*0.4).toFixed(1)}).</span></div>`;
+    } else if (minFinal > 100) {
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle" aria-hidden="true"></i> <span>Kurul ortalamanız çok düşük — 100 alsanız bile dönem başarı notunuz 60'a ulaşamaz.</span></div>`;
+    } else {
+      durumHtml += `<div class="warn-box"><i class="ti ti-info-circle" aria-hidden="true"></i> <span>Geçmek için finalden en az <strong>${Math.ceil(minFinal)}</strong> almanız gerekiyor.</span></div>`;
+    }
+  }
+
+  durumEl.innerHTML = durumHtml;
+}
+
+renderKurullar();
+hesapla();
+</script>
+</body>
+</html>
