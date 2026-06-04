@@ -342,7 +342,7 @@ function hesapla() {
   let html = '';
   if (kurul_ort !== null) {
     const renkOrt = kurul_ort >= 75 ? 'success' : kurul_ort >= ayar.gecmeNotu ? 'warning' : 'danger';
-    html += `<div class="metric"><div class="metric-label">Kurul ortalaması</div><div class="metric-value ${renkOrt}">${kurul_ort.toFixed(1)}</div></div>`;
+    html += `<div class="metric"><div class="metric-label">Kurul ortalaması</div><div class="metric-value ${renkOrt}">${kurul_ort.toFixed(2)}</div></div>`;
   }
   if (!isNaN(finalVal)) {
     const renkFinal = finalVal >= ayar.gecmeNotu ? 'success' : finalVal >= 50 ? 'warning' : 'danger';
@@ -351,11 +351,11 @@ function hesapla() {
   if (kurul_ort !== null && !isNaN(finalVal)) {
     const donemBasari = kurul_ort * ayar.kurulAgirlik + finalVal * ayar.finalAgirlik;
     const renkBasari = donemBasari >= ayar.gecmeNotu ? 'success' : 'danger';
-    html += `<div class="metric"><div class="metric-label">Dönem başarı notu</div><div class="metric-value ${renkBasari}">${donemBasari.toFixed(1)}</div><div style="font-size:0.65rem;color:var(--text-secondary);margin-top:4px;">kurul×${ayar.kurulAgirlik} + final×${ayar.finalAgirlik}</div></div>`;
+    html += `<div class="metric"><div class="metric-label">Dönem başarı notu</div><div class="metric-value ${renkBasari}">${donemBasari.toFixed(2)}</div><div style="font-size:0.65rem;color:var(--text-secondary);margin-top:4px;">kurul×${ayar.kurulAgirlik} + final×${ayar.finalAgirlik}</div></div>`;
   } else if (kurul_ort !== null) {
     const minFinal = ayar.finalAgirlik > 0 ? (ayar.gecmeNotu - kurul_ort * ayar.kurulAgirlik) / ayar.finalAgirlik : Infinity;
     const renkMin = minFinal <= 100 ? 'warning' : 'danger';
-    html += `<div class="metric"><div class="metric-label">Geçmek için min. final</div><div class="metric-value ${renkMin}">${minFinal <= 0 ? '—' : minFinal > 100 ? '100+' : Math.ceil(minFinal)}</div></div>`;
+    html += `<div class="metric"><div class="metric-label">Geçmek için min. final</div><div class="metric-value ${renkMin}">${minFinal <= 0 ? '—' : minFinal > 100 ? '100+' : minFinal.toFixed(2)}</div></div>`;
   }
   resultsEl.innerHTML = html;
 
@@ -368,18 +368,18 @@ function hesapla() {
     if (finalVal < 50) {
       durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Final notu 50'nin altında — yönetmelik gereği finalden en az 50 alınması zorunludur.</span></div>`;
     } else if (donemBasari >= ayar.gecmeNotu && bazindaKalan === 0) {
-      durumHtml += `<div class="success-box"><i class="ti ti-circle-check"></i> <span>Tebrikler! Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (${ayar.gecmeNotu}) sağlıyorsunuz.</span></div>`;
+      durumHtml += `<div class="success-box"><i class="ti ti-circle-check"></i> <span>Tebrikler! Dönem başarı notunuz ${donemBasari.toFixed(2)} — geçme koşulunu (${ayar.gecmeNotu}) sağlıyorsunuz.</span></div>`;
     } else if (donemBasari < ayar.gecmeNotu) {
-      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Dönem başarı notunuz ${donemBasari.toFixed(1)} — geçme koşulunu (${ayar.gecmeNotu}) sağlayamıyorsunuz. Bütünleme sınavı hakkınız doğabilir.</span></div>`;
+      durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Dönem başarı notunuz ${donemBasari.toFixed(2)} — geçme koşulunu (${ayar.gecmeNotu}) sağlayamıyorsunuz. Bütünleme sınavı hakkınız doğabilir.</span></div>`;
     }
   } else if (kurul_ort !== null && isNaN(finalVal)) {
     const minFinal = ayar.finalAgirlik > 0 ? (ayar.gecmeNotu - kurul_ort * ayar.kurulAgirlik) / ayar.finalAgirlik : Infinity;
     if (minFinal <= 50) {
-      durumHtml += `<div class="success-box"><i class="ti ti-info-circle"></i> <span>Kurul ortalamanızla, finalden minimum 50 alarak geçebilirsiniz (50 alırsanız dönem notu: ${(kurul_ort*ayar.kurulAgirlik+50*ayar.finalAgirlik).toFixed(1)}).</span></div>`;
+      durumHtml += `<div class="success-box"><i class="ti ti-info-circle"></i> <span>Kurul ortalamanızla, finalden minimum 50 alarak geçebilirsiniz (50 alırsanız dönem notu: ${(kurul_ort*ayar.kurulAgirlik+50*ayar.finalAgirlik).toFixed(2)}).</span></div>`;
     } else if (minFinal > 100) {
       durumHtml += `<div class="danger-box"><i class="ti ti-alert-triangle"></i> <span>Kurul ortalamanız çok düşük — 100 alsanız bile dönem başarı notunuz ${ayar.gecmeNotu}'a ulaşamaz.</span></div>`;
     } else {
-      durumHtml += `<div class="warn-box"><i class="ti ti-info-circle"></i> <span>Geçmek için finalden en az <strong>${Math.ceil(minFinal)}</strong> almanız gerekiyor.</span></div>`;
+      durumHtml += `<div class="warn-box"><i class="ti ti-info-circle"></i> <span>Geçmek için finalden en az <strong>${minFinal.toFixed(2)}</strong> almanız gerekiyor.</span></div>`;
     }
   }
   durumEl.innerHTML = durumHtml;
